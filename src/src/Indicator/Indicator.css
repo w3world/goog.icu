@@ -1,0 +1,251 @@
+.indicator {
+  display: flex;
+  --var-success: #28a745;
+  --var-error: #ce5656;
+  --var-loading: blue;
+}
+
+.indicator *,
+.indicator *::before,
+.indicator *::after {
+  box-sizing: border-box;
+}
+
+.validationAffix {
+  flex: 0 0 32px;
+  padding-left: 8px;
+  height: 24px;
+  position: relative;
+}
+
+.validationIndicator {
+  transition: all 0.2s ease;
+  display: block;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  background: transparent;
+  border: 2px solid transparent;
+}
+
+@media (min-width: 768px) {
+  .validationIndicator {
+    width: 36px;
+    height: 36px;
+  }
+}
+
+.validationIndicator:after {
+  transition: all 0.2s ease;
+  position: absolute;
+  content: "";
+  width: 24px;
+  height: 24px;
+  background-size: 24px;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  top: -2px;
+  left: -2px;
+}
+
+@media (min-width: 768px) {
+  .validationIndicator:after {
+    width: 32px;
+    height: 32px;
+    background-size: 36px;
+    top: 0;
+    left: 0;
+  }
+}
+
+.success .validationIndicator:after,
+.danger .validationIndicator:after {
+  animation: validity-symbol-animation 0.5s ease-out alternate both;
+}
+
+.loading .validationIndicator:after {
+  animation: validity-symbol-animation infinite ease-out alternate both;
+}
+
+.success .validationIndicator {
+  animation: validity-animation-valid 0.5s ease-out alternate both;
+}
+
+.success .validationIndicator:after {
+  background-image: url("symbol-tick.svg");
+}
+
+.danger .validationIndicator {
+  animation: validity-animation-error 0.5s ease-out alternate both;
+}
+
+.danger .validationIndicator:after {
+  background-image: url("symbol-error.svg");
+}
+
+.loading .validationIndicator {
+  animation: validity-animation-loading 0.5s ease-out alternate both;
+}
+
+@keyframes validity-animation-valid {
+  0% {
+    border-top-color: var(--var-success);
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+    transform: rotate(0) scale(1);
+  }
+  20% {
+    border-top-color: var(--var-success);
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+  }
+  40% {
+    border-top-color: var(--var-success);
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+    background: transparent;
+    transform: rotate(360deg) scale(1);
+  }
+  60% {
+    border-top-color: var(--var-success);
+    border-right-color: var(--var-success);
+    border-bottom-color: var(--var-success);
+    border-left-color: var(--var-success);
+    background: var(--var-success);
+    transform: rotate(360deg) scale(1.2);
+  }
+  80% {
+    border-top-color: var(--var-success);
+    border-right-color: var(--var-success);
+    border-bottom-color: var(--var-success);
+    border-left-color: var(--var-success);
+    background: var(--var-success);
+  }
+  100% {
+    border-top-color: var(--var-success);
+    border-right-color: var(--var-success);
+    border-bottom-color: var(--var-success);
+    border-left-color: var(--var-success);
+    background: var(--var-success);
+    transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes validity-animation-error {
+  0% {
+    border-top-color: var(--var-error);
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+    transform: rotate(0) scale(1);
+  }
+  20% {
+    border-top-color: var(--var-error);
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+  }
+  40% {
+    border-top-color: var(--var-error);
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+    background: transparent;
+    transform: rotate(-360deg) scale(1);
+  }
+  60% {
+    border-top-color: var(--var-error);
+    border-right-color: var(--var-error);
+    border-bottom-color: var(--var-error);
+    border-left-color: var(--var-error);
+    background: var(--var-error);
+    transform: rotate(-360deg) scale(1.2);
+  }
+  80% {
+    border-top-color: var(--var-error);
+    border-right-color: var(--var-error);
+    border-bottom-color: var(--var-error);
+    border-left-color: var(--var-error);
+    background: var(--var-error);
+  }
+  100% {
+    border-top-color: var(--var-error);
+    border-right-color: var(--var-error);
+    border-bottom-color: var(--var-error);
+    border-left-color: var(--var-error);
+    background: var(--var-error);
+    transform: rotate(-360deg) scale(1);
+  }
+}
+
+@keyframes validity-animation-loading {
+  0% {
+    border-top-color: #c5c5c5;
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+    transform: rotate(0) scale(1);
+  }
+  20% {
+    border-top-color: #c5c5c5;
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+  }
+  40% {
+    border-top-color: #c5c5c5;
+    border-right-color: #f9f9ff;
+    border-bottom-color: #f9f9ff;
+    border-left-color: #f9f9ff;
+    background: transparent;
+    transform: rotate(-360deg) scale(1);
+  }
+  60% {
+    border-top-color: #c5c5c5;
+    border-right-color: #c5c5c5;
+    border-bottom-color: #c5c5c5;
+    border-left-color: #c5c5c5;
+    background: #c5c5c5;
+    transform: rotate(-360deg) scale(1.2);
+  }
+  80% {
+    border-top-color: #c5c5c5;
+    border-right-color: #c5c5c5;
+    border-bottom-color: #c5c5c5;
+    border-left-color: #c5c5c5;
+    background: #c5c5c5;
+  }
+  100% {
+    border-top-color: #c5c5c5;
+    border-right-color: #c5c5c5;
+    border-bottom-color: #c5c5c5;
+    border-left-color: #c5c5c5;
+    background: #c5c5c5;
+    transform: rotate(-360deg) scale(1);
+  }
+}
+
+@keyframes validity-symbol-animation {
+  0% {
+    opacity: 0;
+  }
+  20% {
+    opacity: 0;
+  }
+  40% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}

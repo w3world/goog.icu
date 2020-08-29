@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>indicator</title>
+</head>
+
+<body>
+
+  <li>
+    <div class="error indicator">
+      <div class="field__affix">
+        <div class="field__validationIndicator"></div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="valid indicator">
+      <div class="field__affix">
+        <div class="field__validationIndicator"></div>
+      </div>
+    </div>
+  </li>
+  <li>
+    <div class="rerun">
+      <div class="field__affix">
+        <div class="field__validationIndicator"></div>
+      </div>
+    </div>
+  </li>
+</body>
+
+<style>
+  /* Demo only*/
+  
+  .container {
+    margin: 2em;
+  }
+  /* Indicator */
+  
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  .field__affix {
+    flex: 0 0 32px;
+    padding-left: 8px;
+    height: 24px;
+  }
+  
+  .field__validationIndicator {
+    transition: all 0.2s ease;
+    display: block;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border: 2px solid transparent;
+  }
+  
+  @media (min-width: 577px) {
+    .field__validationIndicator {
+      width: 36px;
+      height: 36px;
+    }
+  }
+  
+  .field__validationIndicator:after {
+    transition: all 0.2s ease;
+    position: absolute;
+    content: "";
+    width: 24px;
+    height: 24px;
+    background-size: 24px;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0;
+    top: -2px;
+    left: -2px;
+  }
+  
+  @media (min-width: 577px) {
+    .field__validationIndicator:after {
+      width: 32px;
+      height: 32px;
+      background-size: 36px;
+      top: 0;
+      left: 0;
+    }
+  }
+  
+  .valid .field__validationIndicator:after,
+  .error .field__validationIndicator:after {
+    animation: validity-symbol-animation 0.5s ease-out alternate both;
+  }
+  
+  .valid .field__validationIndicator {
+    animation: validity-animation-valid 0.5s ease-out alternate both;
+  }
+  
+  .valid .field__validationIndicator:after {
+    background-image: url("symbol-tick.svg");
+  }
+  
+  .error .field__validationIndicator {
+    animation: validity-animation-error 0.5s ease-out alternate both;
+  }
+  
+  .error .field__validationIndicator:after {
+    background-image: url("symbol-error.svg");
+  }
+  
+  @keyframes validity-animation-valid {
+    0% {
+      border-top-color: #4f9f48;
+      border-right-color: #f9f9ff;
+      border-bottom-color: #f9f9ff;
+      border-left-color: #f9f9ff;
+      transform: rotate(0) scale(1);
+    }
+    20% {
+      border-top-color: #4f9f48;
+      border-right-color: #f9f9ff;
+      border-bottom-color: #f9f9ff;
+      border-left-color: #f9f9ff;
+    }
+    40% {
+      border-top-color: #4f9f48;
+      border-right-color: #f9f9ff;
+      border-bottom-color: #f9f9ff;
+      border-left-color: #f9f9ff;
+      background: transparent;
+      transform: rotate(360deg) scale(1);
+    }
+    60% {
+      border-top-color: #4f9f48;
+      border-right-color: #4f9f48;
+      border-bottom-color: #4f9f48;
+      border-left-color: #4f9f48;
+      background: #4f9f48;
+      transform: rotate(360deg) scale(1.2);
+    }
+    80% {
+      border-top-color: #4f9f48;
+      border-right-color: #4f9f48;
+      border-bottom-color: #4f9f48;
+      border-left-color: #4f9f48;
+      background: #4f9f48;
+    }
+    100% {
+      border-top-color: #4f9f48;
+      border-right-color: #4f9f48;
+      border-bottom-color: #4f9f48;
+      border-left-color: #4f9f48;
+      background: #4f9f48;
+      transform: rotate(360deg) scale(1);
+    }
+  }
+  
+  @keyframes validity-animation-error {
+    0% {
+      border-top-color: #ce5656;
+      border-right-color: #f9f9ff;
+      border-bottom-color: #f9f9ff;
+      border-left-color: #f9f9ff;
+      transform: rotate(0) scale(1);
+    }
+    20% {
+      border-top-color: #ce5656;
+      border-right-color: #f9f9ff;
+      border-bottom-color: #f9f9ff;
+      border-left-color: #f9f9ff;
+    }
+    40% {
+      border-top-color: #ce5656;
+      border-right-color: #f9f9ff;
+      border-bottom-color: #f9f9ff;
+      border-left-color: #f9f9ff;
+      background: transparent;
+      transform: rotate(-360deg) scale(1);
+    }
+    60% {
+      border-top-color: #ce5656;
+      border-right-color: #ce5656;
+      border-bottom-color: #ce5656;
+      border-left-color: #ce5656;
+      background: #ce5656;
+      transform: rotate(-360deg) scale(1.2);
+    }
+    80% {
+      border-top-color: #ce5656;
+      border-right-color: #ce5656;
+      border-bottom-color: #ce5656;
+      border-left-color: #ce5656;
+      background: #ce5656;
+    }
+    100% {
+      border-top-color: #ce5656;
+      border-right-color: #ce5656;
+      border-bottom-color: #ce5656;
+      border-left-color: #ce5656;
+      background: #ce5656;
+      transform: rotate(-360deg) scale(1);
+    }
+  }
+  
+  @keyframes validity-symbol-animation {
+    0% {
+      opacity: 0;
+    }
+    20% {
+      opacity: 0;
+    }
+    40% {
+      opacity: 0;
+    }
+    60% {
+      opacity: 1;
+    }
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+</style>
+
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script>
+  // https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Animations/Tips
+  function play() {
+    document.querySelector(".rerun").className = "rerun";
+    window.requestAnimationFrame(function(time) {
+      window.requestAnimationFrame(function(time) {
+        document.querySelector(".rerun").className = "rerun error";
+      });
+    });
+  }
+
+  $(function() {
+    $('.indicator').click(function() {
+      $(this).toggleClass("error").toggleClass("valid")
+    })
+
+    $('.rerun')
+      .addClass('error')
+      .click(function() {
+        play()
+      })
+
+  })
+</script>
+
+</html>

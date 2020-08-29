@@ -1,0 +1,11 @@
+{
+  "name" : "Goog.icu",
+  "short_name": "Google icu",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#FFFFFF",
+  "theme_color": "#BBEEFF",
+  "orientation": "portrait-primary",
+  "icons": []
+}

@@ -1,0 +1,32 @@
+
+#main {
+  max-width: 500px;
+
+  /* todo: dark them */
+  /* --tile-title-color: rgba(248,249,250,1);
+  --logo-color: rgba(238,238,238,1);
+  --gray-background-color: rgb(53, 54, 58); */
+
+  --tile-title-color: black;
+
+}
+.engine-container{
+    display: flex;
+    padding: 0;
+}
+.engine-btn{
+    padding-top:20px;
+    padding-bottom: 12px;
+    width: 100%;
+}
+.engine-name{
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    /* at most two lines*/
+    max-height: 50px;
+    margin: 5px auto 5px;
+    color: var(--tile-title-color);
+    font-weight: 500;
+}

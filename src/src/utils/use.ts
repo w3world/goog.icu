@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { EventHandler, useEffect, useRef } from 'react';
 import { tik } from './util';
 
 /* React style `setInterval`
@@ -51,14 +51,14 @@ export function useInterval(callback: Function, delay: number = 1000) {
  * @param handler EventHandler
  */
 
-export function useEvent(event: string, handler: Function) {
+export function useEvent(event: string, handler: EventHandler<any>) {
   useEffect(() => {
     // initiate the event handler
-    window.addEventListener(event, handler);
+    window.addEventListener(event, handler as EventHandler<any>);
 
     // this will clean up the event every time the component is re-rendered
     return function cleanup() {
-      window.removeEventListener(event, handler);
+      window.removeEventListener(event, handler as EventHandler<any>);
     };
   });
 }
@@ -69,7 +69,7 @@ export function useEvent(event: string, handler: Function) {
  *
  * useDebounce(callback, deps, [interval])
  * 
- */ 
+ */
 /*
 export function useDebounce(callback: Function, deps: any[], interval: number = 1000) {
   const savedRunAt = useRef<number>(0)
@@ -105,11 +105,11 @@ export function usePrevious<T>(value: T) {
   useEffect(() => {
     ref.current = value;
   }, [value]); // Only re-run if value changes
-  
+
   // Return previous value (happens before update in useEffect above)
   // so the first initial value ref.current is `undefined`
   return ref.current;
-  
+
   // but want to sync with the state's initial value.
   // return ref.current || value;
 }

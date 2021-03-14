@@ -20,6 +20,7 @@ interface MyDocument {
 interface MyLocation {
   search: string
   href: string
+  assign: Function
 }
 declare var window: MyWindow
 declare var document: MyDocument

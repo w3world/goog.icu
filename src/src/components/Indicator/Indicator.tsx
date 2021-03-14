@@ -9,6 +9,7 @@ export interface IndicatorProps {
 }
 
 export enum IndicatorStatus {
+  DEFAULT = 'default',
   VALID = 'success', 
   LOADING = 'warning', 
   ERROR = 'danger',
@@ -17,23 +18,23 @@ export enum IndicatorStatus {
 
 function Indicator({status, updatedAt, animationRefresh = true}: IndicatorProps) {
 
-  const [animating, setAnimating] = useState(true)
+  const [isAnimating, setIsAnimating] = useState(true)
   
   // When an update coming in, stops the animation in next frame and repaint the new
-  useEffect(() => {
-    if (animationRefresh) {
-      setAnimating(false)
-      window.requestAnimationFrame(function () {
-        window.requestAnimationFrame(function () {
-          setAnimating(true)
-        })
-      })
-    }
-  }, [updatedAt])
+  // useEffect(() => {
+  //   if (animationRefresh) {
+  //     setIsAnimating(false)
+  //     window.requestAnimationFrame(function () {
+  //       window.requestAnimationFrame(function () {
+  //         setIsAnimating(true)
+  //       })
+  //     })
+  //   }
+  // }, [updatedAt])
 
-  return (
+  return (                     
     <div className="indicator">
-      <div className={`${animating ? status: 'loading'}`}>
+      <div className={status}>
         <div className="validationAffix">
           <div className="validationIndicator"></div>
         </div>

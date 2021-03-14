@@ -1,28 +1,5 @@
 import { tik, uid, mixParams } from "./util";
 
-export enum Extension {
-  JS,
-  JSON,
-  IMG,
-  OTHER
-}
-
-export function isExtension(src: string, ext: Extension) {
-  return ext === extensionFromPath(src)
-
-  function extensionFromPath(_src: string) {
-    if (_src.endsWith('.js')) { return Extension.JS }
-    if (_src.endsWith('.json')) { return Extension.JSON }
-
-    const imageExtension = ['.png', '.jpg', '.jpeg', 'gif', 'webp']
-    if (imageExtension.find(img => _src.endsWith(img)) !== undefined) {
-      return Extension.IMG
-    }
-
-    return Extension.OTHER
-  }
-}
-
 enum Method {
   GET = 'GET',
   POST = 'POST',
@@ -30,7 +7,7 @@ enum Method {
 }
 
 interface SniffOptions {
-  src: string
+  urls: string[]
   method?: Method
   timeout?: number
 }
@@ -45,34 +22,37 @@ interface Trailable {
 }
 
 interface PromiseResult extends Trailable {
-
 }
 
 interface SniffResult extends PromiseResult {
-  src: string,
-  refreshToken?: string,
 }
 
 type PromiseResovler = (sr: PromiseResult) => void
 type SniffResovler = (sr: SniffResult) => void
 
+/**
+ * Sniff the resources with the given http Method.
+ * By default use HEAD in order to save traffic./
+ *  
+ * Returns a Promise with result
+ */
 export function sniffWithFetch({
-  src,
+  urls,
   method = Method.HEAD,
   timeout = 3000
 }: SniffOptions): Promise<SniffResult> {
   if ('fetch' in window) {
-    const fetchPromise = window.fetch(src, {
+    const fetchPromises = urls.map(url => window.fetch(url, {
       method: method,
       cache: 'no-cache',
       credentials: 'omit',
       mode: 'no-cors',
-    })
-    return promiseTimeout(fetchPromise, timeout)
+    }));
+    return promiseTimeout(fetchPromises, timeout)
   } else {
     return new Promise((_, reject: SniffResovler) => {
       reject({
-        src, message: "Native fetch is not supported!"
+        message: "Native fetch is not supported!"
       })
     })
   }
@@ -133,10 +113,13 @@ function elementTag(src: string, refreshToken: string) {
 */
 
 
-/* Applying a timeout to your promises
+/*
+ * Applying a timeout to your promises.
+ * 
+ *
  * ref: https://italonascimento.github.io/applying-a-timeout-to-your-promises/
  */
-function promiseTimeout(promise: Promise<any>, ms: number = 2000) {
+function promiseTimeout(promises: Promise<any>[], ms: number = 2000) {
 
   // Create a promise that rejects in <ms> milliseconds
   let timeout = new Promise((_, reject: PromiseResovler) => {
@@ -153,7 +136,7 @@ function promiseTimeout(promise: Promise<any>, ms: number = 2000) {
 
   // Returns a race between our timeout and the passed in promise
   return Promise.race([
-    promise,
+    ...promises,
     timeout
   ])
 }

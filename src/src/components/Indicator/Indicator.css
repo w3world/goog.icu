@@ -3,6 +3,7 @@
   --var-success: #28a745;
   --var-error: #ce5656;
   --var-loading: blue;
+  --outer-ring-size: 3px;
 }
 
 .indicator *,
@@ -13,8 +14,7 @@
 
 .validationAffix {
   flex: 0 0 32px;
-  padding-left: 8px;
-  height: 24px;
+  padding: var(--outer-ring-size);
   position: relative;
 }
 
